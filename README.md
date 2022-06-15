@@ -1,5 +1,6 @@
 # Personal-Study
 # Analysis of artificial intelligence technology capabilities of global tech companies based on open source projects
+
 # 연구배경
 누구나 자유롭게 사용 가능하며 빠르고 유연한 개발을 가능케 한 오픈소스의 
 도입은 소프트웨어 발전에 많은 영향을 미쳤다. 특히 IT 기업은 다양한 오픈소스
@@ -12,3 +13,6 @@
 
 # 연구목적
 기업들이 가지고 있는 깃허브 오픈소스 프로젝트 데이터를 활용하여 설명을 나타내는 메타데이터 뿐만아니라 기술을 나타내는 코드데이터를 같이 사용하여 인공지능 기술의 세부기술을 도출하고 도출된 세부기술에 대한 새로운 기술역량 평가지표를 제시하여 세부 기술별 주요 글로벌 테크 기업들의 기술역량 및 강 약점을 분석한다.
+
+# 프레임워크
+![image](https://user-images.githubusercontent.com/35715977/173728339-7b9e74ac-0541-4f52-a6e6-95e775e3b44c.png)
