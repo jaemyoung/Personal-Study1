@@ -10,15 +10,15 @@ import pandas as pd
 import numpy as np
 import pickle
 
-file_path = "C:/Users/user/Documents/GitHub/오픈소스 기반 기업 역량평가/data/0502_repo_71.pickle"
+file_path = "C:/Users/user/Documents/GitHub/개인연구_오픈소스 기반 기업 역량평가/Personal-Study/data/repo_71.pickle"
 with open(file_path,"rb") as fr:
     data = pickle.load(fr)
 
-file_path = "C:/Users/user/Documents/GitHub/오픈소스 기반 기업 역량평가/data/embedding_vector(doc2vec).pickle"
+file_path = "C:/Users/user/Documents/GitHub/개인연구_오픈소스 기반 기업 역량평가/Personal-Study/data/embedding_vector(doc2vec).pickle"
 with open(file_path,"rb") as fr:
     doc_embedding_vector = pickle.load(fr)
     
-file_path = "C:/Users/user/Documents/GitHub/오픈소스 기반 기업 역량평가/data/embedding_vector(codebert).pickle"
+file_path = "C:/Users/user/Documents/GitHub/개인연구_오픈소스 기반 기업 역량평가/Personal-Study/data/embedding_vector(codebert+layer).pickle"
 with open(file_path,"rb") as fr:
     code_embedding_vector = pickle.load(fr)   
     
@@ -35,6 +35,7 @@ total_embedding_vector = []
 for index, row in data.iterrows():
     total_embedding_vector.append(np.concatenate((row["code_embedding_vector"],row["doc_embedding_vector"]),axis =None))
 data["total_embedding_vector"] =total_embedding_vector
+
 '''
 data["total_embedding_vector"][39] =data["total_embedding_vector"][7]
 data["total_embedding_vector"][63] =data["total_embedding_vector"][7]
@@ -119,11 +120,12 @@ def make_hierarchi_clustering(vector_sum, cut_off):
     return predict
 
 #%% 시각화 적용
-hier.columns = ["Cluster","repo_name"]
-hier = make_hierarchi_clustering(data["total_embedding_vector"], 150)
-tsne1 = make_tSNE(data.reset_index()["total_embedding_vector"],4,data.reset_index())
 
-data = data.drop(["aws/aws-neuron-sdk","aws/sagemaker-inference-toolkit"])
+hier = make_hierarchi_clustering(data["total_embedding_vector"], 6.5)
+hier.columns = ["Cluster","repo_name"]
+tsne1 = make_tSNE(data["total_embedding_vector"],4,data)
+
+
 #bar 그래프
 
 bar = plt.bar(data["owner"].value_counts().index,data["owner"].value_counts(),color = "navy")

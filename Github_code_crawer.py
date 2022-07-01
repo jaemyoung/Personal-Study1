@@ -4,45 +4,50 @@ Created on Fri Apr 22 15:07:10 2022
 
 @author: user
 """
-#data
-"""
-#파일 못받음 용량초과(5) -> total data : 144
-owner_4["full_name"][12] #'microsoft/iot-curriculum'
-owner_4["full_name"][61] #'microsoft/DirectML'
-owner_4["full_name"][72] #'microsoft/onnxruntime'
-owner_4["full_name"][117] #'IBM/MAX-Sports-Video-Classifier'
-owner_4["full_name"][123] #'aws/sagemaker-python-sdk'
-"""
-data_owner = pd.read_csv("C:/Users/user/Documents/GitHub/오픈소스 기반 기업 역량평가/data/filttered_data_0424.csv")
-owner_list = ["microsoft","IBM","google","aws"] #microsoft-Azure, google-tensorflow 등 같은 회사나타내는 것 표시
-owner_4 = data_owner[data_owner['owner'].isin(owner_list)].reset_index()
-owner_4 = owner_4.drop(owner_4.index[[12,61,72,117,123]])
-owner_4 = owner_4.reset_index() 
+#%% data 
+import pandas as pd
+data = pd.read_csv("C:/Users/user/Documents/GitHub/개인연구_오픈소스 기반 기업 역량평가/Personal-Study/data/filttered_data_0424.csv",)
+owner = data["owner"].value_counts()
 
+microsoft_list = ["microsoft","Azure","Azure-Samples"]
+IBM_list = ["IBM","IBM-Cloud","IBM-Watson-APIs"]
+aws_list = ["aws","awslabs","aws-samples","aws-solutions"]
+google_list = ["google","googleapis","deepmind","tensorflow","google-research"]
+meta_list = ["Meta","pytorch","PyTorchLightning"]
 
+microsoft_owner = data[data['owner'].isin(microsoft_list)]
+IBM_owner = data[data['owner'].isin(IBM_list)]
+aws_owner = data[data['owner'].isin(aws_list)]
+google_owner = data[data['owner'].isin(google_list)]
+meta_owner = data[data['owner'].isin(meta_list)]
 
-## load contents
+microsoft_owner["big_owner"] = "microsoft"
+IBM_owner["big_owner"] = "IBM"
+aws_owner["big_owner"] = "aws"
+google_owner["big_owner"] = "google"
+meta_owner["big_owner"] = "meta"
+
+owner5 = pd.concat([microsoft_owner,IBM_owner,aws_owner,google_owner,meta_owner])
+
+#%% load contents
 import pickle
 file_path = "C:/Users/user/Documents/GitHub/오픈소스 기반 기업 역량평가/data/contents_owner_4_version1.pickle"
 with open(file_path,"rb") as fr:
     repo_contents_owner_4 = pickle.load(fr)
-    
+#%% code crowler
 from github import Github  
 import re
 # Github Enterprise with custom hostname
-g = Github(login_or_token="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") #토큰 입력
-#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 새롬누나
-#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 민찬
-#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 재명
-
-###전처리
-# repo에 코드 정보 가져오기
-p1= re.compile('.*.py$|.*.java$|.*.js$|.*.php$|.*.rb$|.*.go$')# 6가지 
-p_= re.compile('.*.py$')# 1가지 
+g = Github(login_or_token="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") #토큰 입력
+#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 새롬누나
+#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 민찬
+#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 재명
+#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 현호
+#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 예빈
 
 #repo 에서 dictionary 중 __init__을 가진 dictionary만 뽑아서 경로와 content 저장 -> total data : 93
 #reset_owner_4 = []
-for repo in owner_4["full_name"][103:]:
+for repo in owner5["full_name"][62:]:
     repos = g.get_repo(repo)
     contents = repos.get_contents("")
     content ={}
@@ -50,7 +55,7 @@ for repo in owner_4["full_name"][103:]:
     content_list =[]
     while contents:
 
-        file_content = contents.pop(0)
+        file_content = contents.pop(0)# setup.py에서 find_packages(exclude = ?) 확인 후 제거
         if file_content.type == "dir":
             contents.extend(repos.get_contents(file_content.path))
         elif file_content.name == "__init__.py":
@@ -61,7 +66,8 @@ for repo in owner_4["full_name"][103:]:
             content_list.extend(repos.get_contents(path))
             content["contents"] = content_list #이전 경로
     reset_owner_4.append(content)
-            
+    
+repos.description
 
 #파일 저장
 import pickle
