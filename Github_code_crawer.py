@@ -38,7 +38,7 @@ with open(file_path,"rb") as fr:
 from github import Github  
 import re
 # Github Enterprise with custom hostname
-g = Github(login_or_token="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") #토큰 입력
+g = Github(login_or_token="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") #토큰 입력
 #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 새롬누나
 #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 민찬
 #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 재명
@@ -53,6 +53,7 @@ for repo in owner5["full_name"][62:]:
     content ={}
     path_list = []
     content_list =[]
+    break
     while contents:
 
         file_content = contents.pop(0)# setup.py에서 find_packages(exclude = ?) 확인 후 제거
