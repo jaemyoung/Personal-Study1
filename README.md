@@ -1,5 +1,5 @@
 # Personal-Study 1
-# 영문: Open source-based global tech company technology competency evaluation
+# Analysis of artificial intelligence technology capabilities of global tech companies based on open source projects
 
 # 연구배경
 누구나 자유롭게 사용 가능하며 빠르고 유연한 개발을 가능케 한 오픈소스의 
@@ -16,4 +16,3 @@
 
 # 프레임워크
 # ![image](https://user-images.githubusercontent.com/35715977/173728339-7b9e74ac-0541-4f52-a6e6-95e775e3b44c.png)
-# 2022년 대한산업공학회 춘계학술대회 발표
