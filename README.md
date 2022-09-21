@@ -1,4 +1,4 @@
-# Personal-Study
+# Personal-Study 1
 # Analysis of artificial intelligence technology capabilities of global tech companies based on open source projects
 
 # 연구배경
